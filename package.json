@@ -1,0 +1,13 @@
+{
+  "name": "js-deobfuscator-action",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Deobfuscates javascript-obfuscator-style JS files using webcrack.",
+  "scripts": {
+    "deobfuscate": "node scripts/deobfuscate.js"
+  },
+  "dependencies": {
+    "webcrack": "latest"
+  }
+}
