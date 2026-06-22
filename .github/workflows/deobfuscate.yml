@@ -1,0 +1,34 @@
+name: Deobfuscate JS
+
+on:
+  workflow_dispatch:
+    inputs:
+      input_file:
+        description: 'Path to the obfuscated JS file (relative to repo root)'
+        required: true
+        default: 'pageHook.js'
+
+jobs:
+  deobfuscate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run deobfuscator
+        run: node scripts/deobfuscate.js "${{ github.event.inputs.input_file }}" deobfuscated-output
+
+      - name: Upload result as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deobfuscated-js
+          path: deobfuscated-output
+          retention-days: 7
